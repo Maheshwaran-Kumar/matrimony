@@ -1,0 +1,89 @@
+.background {
+  position: relative;
+  height: 500px;
+  background-image: url('https://images.unsplash.com/photo-1496602910407-bacda74a0fe4?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black
+}
+
+.overlay {
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.headline {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subhead {
+  font-size: 25px;
+  margin-bottom: 30px;
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 150px;
+
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  margin-right: 20px; /* Adds spacing between each input group */
+}
+
+.search-field label {
+  margin-bottom: 8px; 
+  font-size: 16px; 
+  font-weight: bold; 
+}
+
+
+.search-field select {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: none;
+  min-width: 100px;
+}
+
+.age-range {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.begin-button {
+  background-color: #c0392b;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 22px;
+}
+
+.begin-button:hover {
+  background-color: #c0392b;
+}
