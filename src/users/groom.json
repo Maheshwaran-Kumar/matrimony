@@ -1,0 +1,36 @@
+[
+    {
+      "id": 1,
+      "name": "Rohit Sharma",
+      "age": 29,
+      "profession": "Software Engineer",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_YW0636GrOyN7eBrkLO1Z3MUUpjUXLeHsJg&s",
+      "city": "Bangalore"
+    },
+    {
+      "id": 2,
+      "name": "Amit Verma",
+      "age": 32,
+      "profession": "Doctor",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnGxyf_9aEhQ4ea0cybcCiJ3BvIl_SRgB5gQ&s" ,
+      "city": "Delhi"
+       
+    },
+    {
+      "id": 3,
+      "name": "Siddharth Mehra",
+      "age": 28,
+      "profession": "Entrepreneur",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcB_kccnOSoD7EfoWihC5lh9777m0JwtllEg&s",
+      "city": "Mumbai"
+    },
+    {
+      "id": 4,
+      "name": "Karan Patel",
+      "age": 30,
+      "profession": "Architect",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG61KCWOEFUQ_cHsA98xD0XZm6tbiPV4-GCg&s",
+      "city": "Hyderabad"
+    }
+  ]
+  

@@ -25,6 +25,32 @@ const stories = [
 const Story = () => {
   return (
     <section className="success-section">
+      
+      <h1>Why you should choose Indian Matrimony </h1>
+      <div className="stats-container">
+        <div className="stat-item">
+          <img src="https://imgs.bharatmatrimony.com/bmimgs/homepage-revamp-images/records-new-1.svg" alt="Verified" />
+          <div>
+            <h3>100%</h3>
+            <p>Mobile-verified profiles</p>
+          </div>
+        </div>
+        <div className="stat-item">
+          <img src="https://imgs.bharatmatrimony.com/bmimgs/homepage-revamp-images/records-new-3.svg" alt="Handshake" />
+          <div>
+            <h3>7 Crore+</h3>
+            <p>Customers served</p>
+          </div>
+        </div>
+        <div className="stat-item">
+          <img src="https://imgs.bharatmatrimony.com/bmimgs/homepage-revamp-images/records-new-2.svg" alt="Shield" />
+          <div>
+            <h3>25 Years</h3>
+            <p>of successful matchmaking</p>
+          </div>
+        </div>
+      </div>
+
       <h2 className="section-title">7 Million Success Stories & Counting</h2>
       <div className="stories-container">
         {stories.map((story, index) => (

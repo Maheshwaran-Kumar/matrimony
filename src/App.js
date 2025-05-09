@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar/Nav';
 import Background from './Components/Background/Background';
 import Story from './Components/Story/Story';
 import About from './Components/About/About';
+import GroomPage from './Components/groom/groom';
 
 
 
@@ -15,7 +16,8 @@ function App() {
         <Routes>          
           <Route path="/" element={<><Background /><Story/></>} />
           <Route path="/about" element={<About />} />   
-          <Route path="*" element={<h1>Page Not Found</h1>} />       
+          <Route path="*" element={<h1>Page Not Found</h1>} />    
+          <Route path="/groom" element={<><GroomPage/></>} />   
         </Routes>
       </Router>
     </div>
