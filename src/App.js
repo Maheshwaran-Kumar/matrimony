@@ -1,18 +1,17 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar/Nav';
-import Background from './Components/Background/Background';
-import Story from './Components/Story/Story';
-import About from './Components/About/About';
+import Nav from './Components/Navbar/Nav.jsx';
+import Background from './Components/Background/Background.jsx';
+import Story from './Components/Story/Story.jsx';
+import About from './Components/About/About.jsx';
 import GroomPage from './Components/groom/groom';
-
 
 
 function App() {
   return (
     <div className="App">       
       <Router>
-      <Navbar />
+      <Nav />
         <Routes>          
           <Route path="/" element={<><Background /><Story/></>} />
           <Route path="/about" element={<About />} />   

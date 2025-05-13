@@ -1,5 +1,5 @@
 import React from 'react';
-import './Story.css';
+import './story.css';
 import nithinImg from '../../assets/nithin.jpg';
 import abihav from '../../assets/abihav.jpg';
 import shanjoy from '../../assets/shanjoy.jpg';

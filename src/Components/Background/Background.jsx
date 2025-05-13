@@ -1,4 +1,4 @@
-import './Background.css';
+import './background.css';
 
 const Background = () => (
   <div className="background">
@@ -28,6 +28,10 @@ const Background = () => (
               <option>27</option>
               <option>28</option>
               <option>29</option>
+              <option >30</option>
+              <option >31</option>
+              <option >32</option>
+              <option >33</option>
             </select>
           </div>
         </div>

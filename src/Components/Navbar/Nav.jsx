@@ -1,5 +1,5 @@
 import React from "react";
-import "./Nav.css";
+import "./nav.css";
 import { Link } from "react-router-dom";
 
 const Nav = () => {
@@ -9,9 +9,9 @@ const Nav = () => {
         <div className="logo">Indian Matrimony</div>
         <ul className="nav-links">
          
-          <li><Link to="/" className="links">Home</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to="/contact">Contact Us</Link></li>
+          <a><Link to="/" className="links">Home</Link></a>
+          <a><Link to="/about">About Us</Link></a>
+          <a><Link to="/contact">Contact Us</Link></a>
         </ul>
       </div>
       <div className="nav-right">
