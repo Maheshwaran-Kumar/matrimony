@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./groom.css";
-import groomData from "../../users/groom.json";
+import "./bride.css";
+import brideData from "../../users/bride.json";
 
-const GroomPage = () => {
-  const [grooms, setGrooms] = useState([]);
-  const [filteredGrooms, setFilteredGrooms] = useState([]);
+const BridePage = () => {
+  const [brides, setBrides] = useState([]);
+  const [filteredBrides, setFilteredBrides] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [filters, setFilters] = useState({
@@ -18,11 +18,11 @@ const GroomPage = () => {
   const profilesPerPage = 8;
 
   useEffect(() => {
-    setGrooms(groomData);
-    setFilteredGrooms(groomData);
+    setBrides(brideData);
+    setFilteredBrides(brideData);
   }, []);
 
-  const handleGroomFilterChange = (e) => {
+  const handleBrideFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -31,35 +31,35 @@ const GroomPage = () => {
   };
 
   const applyFilters = () => {
-    const filtered = grooms.filter((groom) => {
-      const age = groom.age;
+    const filtered = brides.filter((bride) => {
+      const age = bride.age;
 
       return (
         (filters.gender === "" ||
-          groom.gender.toLowerCase() === filters.gender.toLowerCase()) &&
+          bride.gender.toLowerCase() === filters.gender.toLowerCase()) &&
         (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
         (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
         (filters.religion === "" ||
-          groom.religion.toLowerCase() === filters.religion.toLowerCase()) &&
+          bride.religion.toLowerCase() === filters.religion.toLowerCase()) &&
         (filters.profession === "" ||
-          groom.profession.toLowerCase() === filters.profession.toLowerCase())
+          bride.profession.toLowerCase() === filters.profession.toLowerCase())
       );
     });
 
-    setFilteredGrooms(filtered);
+    setFilteredBrides(filtered);
     setCurrentPage(1);
   };
 
   const indexOfLastProfile = currentPage * profilesPerPage;
   const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
-  const currentProfiles = filteredGrooms.slice(
+  const currentProfiles = filteredBrides.slice(
     indexOfFirstProfile,
     indexOfLastProfile
   );
-  const totalPages = Math.ceil(filteredGrooms.length / profilesPerPage);
+  const totalPages = Math.ceil(filteredBrides.length / profilesPerPage);
 
-  const handleViewProfile = (groom) => {
-    setSelectedProfile(groom);
+  const handleViewProfile = (bride) => {
+    setSelectedProfile(bride);
   };
 
   const handleCloseModal = () => {
@@ -87,9 +87,9 @@ const GroomPage = () => {
             <select
               name="gender"
               value={filters.gender}
-              onChange={handleGroomFilterChange}
+              onChange={handleBrideFilterChange}
             >
-              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
           </div>
 
@@ -99,10 +99,10 @@ const GroomPage = () => {
               <select
                 name="minAge"
                 value={filters.minAge}
-                onChange={handleGroomFilterChange}
+                onChange={handleBrideFilterChange}
               >
                 <option value="">Min</option>
-                {[...Array(20)].map((element, i) => {
+                {Array.from({ length: 20 }, (_, i) => {
                   const age = 20 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -111,10 +111,10 @@ const GroomPage = () => {
               <select
                 name="maxAge"
                 value={filters.maxAge}
-                onChange={handleGroomFilterChange}
+                onChange={handleBrideFilterChange}
               >
                 <option value="">Max</option>
-                {[...Array(20)].map((_, i) => {
+                {Array.from({ length: 20 }, (_, i) => {
                   const age = 25 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -127,7 +127,7 @@ const GroomPage = () => {
             <select
               name="religion"
               value={filters.religion}
-              onChange={handleGroomFilterChange}
+              onChange={handleBrideFilterChange}
             >
               <option value="">Any</option>
               <option value="Christian">Christian</option>
@@ -143,14 +143,14 @@ const GroomPage = () => {
             <select
               name="profession"
               value={filters.profession}
-              onChange={handleGroomFilterChange}
+              onChange={handleBrideFilterChange}
             >
               <option value="">Any</option>
               <option value="Software Engineer">Software Engineer</option>
               <option value="Lawyer">Lawyer</option>
               <option value="Banker">Banker</option>
               <option value="Teacher">Teacher</option>
-              <option value="Businessman">Businessman</option>
+              <option value="Businesswoman">Businesswoman</option>
               <option value="Civil Servant">Civil Servant</option>
               <option value="Doctor">Doctor</option>
             </select>
@@ -162,27 +162,27 @@ const GroomPage = () => {
         </div>
       )}
 
-      <div className="groom-page-container">
-        <div className="groom-page">
-          <div className="groom-grid">
+      <div className="bride-page-container">
+        <div className="bride-page">
+          <div className="bride-grid">
             {currentProfiles.length === 0 ? (
               <p>No matches found.</p>
             ) : (
-              currentProfiles.map((groom) => (
-                <div key={groom.id} className="groom-card">
+              currentProfiles.map((bride) => (
+                <div key={bride.id} className="bride-card">
                   <img
-                    src={groom.image}
-                    alt={groom.name}
-                    className="groom-img"
+                    src={bride.image}
+                    alt={bride.name}
+                    className="bride-img"
                   />
-                  <h3>{groom.name}</h3>
+                  <h3>{bride.name}</h3>
                   <p>
-                    {groom.age} years | {groom.profession}
+                    {bride.age} years | {bride.profession}
                   </p>
-                  <p>{groom.city}</p>
+                  <p>{bride.city}</p>
                   <button
                     className="connect-btn"
-                    onClick={() => handleViewProfile(groom)}
+                    onClick={() => handleViewProfile(bride)}
                   >
                     View Full Profile
                   </button>
@@ -315,4 +315,4 @@ const GroomPage = () => {
   );
 };
 
-export default GroomPage;
+export default BridePage;
