@@ -1,69 +1,93 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    
-  }
-  
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #c0392b;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-links a {
-    cursor: pointer;
-    color: #333;
-    font-weight: 500;
-    text-decoration: none;
-  }
-  
-  .nav-links li:hover {
-    color: #c0392b;
-  }
-  
-  .nav-right {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .btn {
-    padding: 0.5rem 1.2rem;
-    border: none;
-    background-color: #c0392b;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    
-  }
-  
-  .btn.outline {
-    background-color: white;
-    border: 2px solid #c0392b;
-    color: #c0392b;
-  }
-  
-  .btn.outline:hover {
-    background-color: #c0392b;
-    color: white;
-  }
-  
-  .btn:hover {
-    opacity: 0.9;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #c0392b;
+  text-decoration: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* .nav-links :hover {
+  color: #c0392b;
+} */
+
+.nav-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background-color: #c0392b;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn.outline {
+  background-color: #c0392b;
+  /* border: 2px solid #c0392b; */
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem 1.2rem;
+  width: 70px;
+  padding-right: 60px;
+}
+
+/* .btn.outline:hover {
+  background-color: #c0392b;
+  color: white;
+} */
+
+.btn:hover {
+  opacity: 0.9;
+}
+.links {
+  color: #222;
+  text-decoration: none;
+  margin-right: 24px;
+  font-size: 17px;
+  transition: color 0.2s;
+  padding-bottom: 2px;
+}
+
+.links:hover {
+  color: #c0392b;
+}
+
+.active-link {
+  color: #c0392b !important;
+  font-weight: bold;
+
+  border-bottom: 2.5px solid #c0392b;
+}

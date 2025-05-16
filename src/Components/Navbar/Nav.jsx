@@ -1,22 +1,57 @@
 import React from "react";
 import "./nav.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <div className="logo">Indian Matrimony</div>
-        <ul className="nav-links">
-         
-          <a><Link to="/" className="links">Home</Link></a>
-          <a><Link to="/about">About Us</Link></a>
-          <a><Link to="/contact">Contact Us</Link></a>
-        </ul>
+        <NavLink to="/" className="logo">
+          Indian Matrimony
+        </NavLink>
+        <div className="nav-links">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "links active-link" : "links"
+            }
+            end
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "links active-link" : "links"
+            }
+          >
+            About Us
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "links active-link" : "links"
+            }
+          >
+            Contact Us
+          </NavLink>
+          <NavLink
+            to="/wishlist"
+            className={({ isActive }) =>
+              isActive ? "links active-link" : "links"
+            }
+          >
+            Wish List
+          </NavLink>
+        </div>
       </div>
       <div className="nav-right">
-        <Link to="/register"><button className="btn outline">Register</button></Link>
-        <Link to="/login"><button className="btn">Login</button></Link>
+        <NavLink to="/register">
+          <button className="btn outline">Register</button>
+        </NavLink>
+        <NavLink to="/login">
+          <button className="btn">Login</button>
+        </NavLink>
       </div>
     </nav>
   );
