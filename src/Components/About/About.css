@@ -36,13 +36,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* ensures no overflow from image */
+    overflow: hidden; 
   }
   
   .about-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* fills the container while maintaining aspect ratio */
+    object-fit: cover; 
     border-radius: 10px;
   }
   
