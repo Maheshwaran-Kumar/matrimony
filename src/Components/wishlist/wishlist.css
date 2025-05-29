@@ -81,8 +81,7 @@
   border-radius: 25px;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 50px;
-  padding-top: 20px;
+  margin-top: 10px;
 }
 
 .pagination {
@@ -217,19 +216,4 @@ ul li {
   margin-bottom: 5px;
   padding-right: 200px;
   text-decoration: none;
-}
-
-.wishlist-btn {
-  background-color: white;
-  border: none;
-}
-.wishlist-btn img {
-  width: 30px;
-  height: 30px;
-  padding-left: 10px;
-}
-.buttons {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
 }

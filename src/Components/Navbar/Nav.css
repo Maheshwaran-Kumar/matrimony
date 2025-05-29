@@ -1,5 +1,6 @@
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
@@ -11,6 +12,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -33,12 +35,13 @@
   text-decoration: none;
 }
 
-.nav-links li:hover {
+/* .nav-links :hover {
   color: #c0392b;
-}
+} */
 
 .nav-right {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -52,16 +55,39 @@
 }
 
 .btn.outline {
-  background-color: white;
-  border: 2px solid #c0392b;
-  color: #c0392b;
+  background-color: #c0392b;
+  /* border: 2px solid #c0392b; */
+  color: white;
+  border-radius: 5px;
+  padding: 0.5rem 1.2rem;
+  width: 70px;
+  padding-right: 60px;
 }
 
-.btn.outline:hover {
+/* .btn.outline:hover {
   background-color: #c0392b;
   color: white;
-}
+} */
 
 .btn:hover {
   opacity: 0.9;
+}
+.links {
+  color: #222;
+  text-decoration: none;
+  margin-right: 24px;
+  font-size: 17px;
+  transition: color 0.2s;
+  padding-bottom: 2px;
+}
+
+.links:hover {
+  color: #c0392b;
+}
+
+.active-link {
+  color: #c0392b !important;
+  font-weight: bold;
+
+  border-bottom: 2.5px solid #c0392b;
 }
