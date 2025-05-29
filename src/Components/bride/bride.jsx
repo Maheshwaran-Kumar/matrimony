@@ -7,12 +7,15 @@ const BridePage = () => {
   const [filteredBrides, setFilteredBrides] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
+<<<<<<< HEAD
 
   const [wishlist, setWishlist] = useState(() => {
     const stored = localStorage.getItem("wishlist");
     return stored ? JSON.parse(stored) : [];
   });
 
+=======
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   const [filters, setFilters] = useState({
     gender: "",
     minAge: "",
@@ -23,9 +26,20 @@ const BridePage = () => {
 
   const profilesPerPage = 8;
 
+<<<<<<< HEAD
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/bride")
+=======
+  // useEffect(() => {
+  //   setBrides(brideData);
+  //   setFilteredBrides(brideData);
+  // }, []);
+
+  useEffect(() => {
+    axios
+      .get("bride.json")
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
       .then((res) => {
         setBrides(res.data);
         setFilteredBrides(res.data);
@@ -44,6 +58,7 @@ const BridePage = () => {
   };
 
   const applyFilters = () => {
+<<<<<<< HEAD
     const params = new URLSearchParams();
 
     if (filters.minAge) params.append("minAge", filters.minAge);
@@ -65,6 +80,25 @@ const BridePage = () => {
       .catch((err) => {
         console.error("Error fetching filtered data:", err);
       });
+=======
+    const filtered = brides.filter((bride) => {
+      const age = bride.age;
+
+      return (
+        (filters.gender === "" ||
+          bride.gender.toLowerCase() === filters.gender.toLowerCase()) &&
+        (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
+        (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
+        (filters.religion === "" ||
+          bride.religion.toLowerCase() === filters.religion.toLowerCase()) &&
+        (filters.profession === "" ||
+          bride.profession.toLowerCase() === filters.profession.toLowerCase())
+      );
+    });
+
+    setFilteredBrides(filtered);
+    setCurrentPage(1);
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   };
 
   const indexOfLastProfile = currentPage * profilesPerPage;
@@ -95,6 +129,7 @@ const BridePage = () => {
     }
   };
 
+<<<<<<< HEAD
   const handleToggleWishlist = async (profile) => {
     if (!profile || !profile.id) {
       alert("Invalid profile selected!");
@@ -127,6 +162,8 @@ const BridePage = () => {
     }
   };
 
+=======
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   return (
     <>
       {currentPage === 1 && (
@@ -151,7 +188,11 @@ const BridePage = () => {
                 onChange={handleBrideFilterChange}
               >
                 <option value="">Min</option>
+<<<<<<< HEAD
                 {[...Array(20)].map((element, i) => {
+=======
+                {Array.from({ length: 20 }, (_, i) => {
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
                   const age = 20 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -163,7 +204,11 @@ const BridePage = () => {
                 onChange={handleBrideFilterChange}
               >
                 <option value="">Max</option>
+<<<<<<< HEAD
                 {[...Array(20)].map((_, i) => {
+=======
+                {Array.from({ length: 20 }, (_, i) => {
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
                   const age = 25 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -224,12 +269,16 @@ const BridePage = () => {
                     alt={bride.name}
                     className="bride-img"
                   />
+<<<<<<< HEAD
 
+=======
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
                   <h3>{bride.name}</h3>
                   <p>
                     {bride.age} years | {bride.profession}
                   </p>
                   <p>{bride.city}</p>
+<<<<<<< HEAD
                   <div className="buttons">
                     <button
                       className="connect-btn"
@@ -254,6 +303,14 @@ const BridePage = () => {
                       )}
                     </button>
                   </div>
+=======
+                  <button
+                    className="connect-btn"
+                    onClick={() => handleViewProfile(bride)}
+                  >
+                    View Full Profile
+                  </button>
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
                 </div>
               ))
             )}

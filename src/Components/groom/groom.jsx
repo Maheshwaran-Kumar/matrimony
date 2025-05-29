@@ -7,7 +7,11 @@ const GroomPage = () => {
   const [filteredGrooms, setFilteredGrooms] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
+<<<<<<< HEAD
 
+=======
+  const [loading, setLoading] = useState(true);
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   const [wishlist, setWishlist] = useState(() => {
     const stored = localStorage.getItem("wishlist");
     return stored ? JSON.parse(stored) : [];
@@ -25,6 +29,7 @@ const GroomPage = () => {
 
   useEffect(() => {
     axios
+<<<<<<< HEAD
       .get("http://127.0.0.1:5000/groom")
       .then((res) => {
         setGrooms(res.data);
@@ -32,6 +37,19 @@ const GroomPage = () => {
       })
       .catch((error) => {
         console.error("Failed to fetch data:", error);
+=======
+      .get("http://localhost:3002/groom")
+      .then((res) => {
+        setTimeout(() => {
+          setGrooms(res.data);
+          setFilteredGrooms(res.data);
+          setLoading(false);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+        setLoading(false);
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
       });
   }, []);
 
@@ -43,6 +61,7 @@ const GroomPage = () => {
     }));
   };
 
+<<<<<<< HEAD
   // const applyFilters = () => {
   //   const filtered = grooms.filter((groom) => {
   //     const age = groom.age;
@@ -86,6 +105,26 @@ const GroomPage = () => {
         console.error("Error fetching filtered data:", err);
       })
       .finally(() => {});
+=======
+  const applyFilters = () => {
+    const filtered = grooms.filter((groom) => {
+      const age = groom.age;
+
+      return (
+        (filters.gender === "" ||
+          groom.gender.toLowerCase() === filters.gender.toLowerCase()) &&
+        (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
+        (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
+        (filters.religion === "" ||
+          groom.religion.toLowerCase() === filters.religion.toLowerCase()) &&
+        (filters.profession === "" ||
+          groom.profession.toLowerCase() === filters.profession.toLowerCase())
+      );
+    });
+
+    setFilteredGrooms(filtered);
+    setCurrentPage(1);
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   };
 
   const indexOfLastProfile = currentPage * profilesPerPage;
@@ -148,6 +187,28 @@ const GroomPage = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+  if (loading) {
+    return (
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "50px",
+        }}
+      >
+        <img
+          src="https://www.delphinecouture.com/wp-content/uploads/2017/04/loading-wedding-animation.gif"
+          alt="Loading..."
+          height="100px"
+          width="100px"
+        />
+        <p>Loading ...</p>
+      </div>
+    );
+  }
+
+>>>>>>> facd513706dce09721891ae561a9cd8cd4f65355
   return (
     <>
       {currentPage === 1 && (
