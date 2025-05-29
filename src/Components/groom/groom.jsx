@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./groom.css";
-import groomData from "../../users/groom.json";
+import axios from "axios";
 
 const GroomPage = () => {
   const [grooms, setGrooms] = useState([]);
   const [filteredGrooms, setFilteredGrooms] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
+
+  const [wishlist, setWishlist] = useState(() => {
+    const stored = localStorage.getItem("wishlist");
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const [filters, setFilters] = useState({
     gender: "",
     minAge: "",
@@ -18,8 +24,15 @@ const GroomPage = () => {
   const profilesPerPage = 8;
 
   useEffect(() => {
-    setGrooms(groomData);
-    setFilteredGrooms(groomData);
+    axios
+      .get("http://127.0.0.1:5000/groom")
+      .then((res) => {
+        setGrooms(res.data);
+        setFilteredGrooms(res.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      });
   }, []);
 
   const handleGroomFilterChange = (e) => {
@@ -30,24 +43,49 @@ const GroomPage = () => {
     }));
   };
 
+  // const applyFilters = () => {
+  //   const filtered = grooms.filter((groom) => {
+  //     const age = groom.age;
+
+  //     return (
+  //       (filters.gender === "" ||
+  //         groom.gender.toLowerCase() === filters.gender.toLowerCase()) &&
+  //       (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
+  //       (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
+  //       (filters.religion === "" ||
+  //         groom.religion.toLowerCase() === filters.religion.toLowerCase()) &&
+  //       (filters.profession === "" ||
+  //         groom.profession.toLowerCase() === filters.profession.toLowerCase())
+  //     );
+  //   });
+
+  //   setFilteredGrooms(filtered);
+  //   setCurrentPage(1);
+  // };
+
   const applyFilters = () => {
-    const filtered = grooms.filter((groom) => {
-      const age = groom.age;
+    const params = new URLSearchParams();
 
-      return (
-        (filters.gender === "" ||
-          groom.gender.toLowerCase() === filters.gender.toLowerCase()) &&
-        (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
-        (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
-        (filters.religion === "" ||
-          groom.religion.toLowerCase() === filters.religion.toLowerCase()) &&
-        (filters.profession === "" ||
-          groom.profession.toLowerCase() === filters.profession.toLowerCase())
-      );
-    });
+    if (filters.minAge) params.append("minAge", filters.minAge);
+    if (filters.maxAge) params.append("maxAge", filters.maxAge);
+    if (filters.religion) params.append("religion", filters.religion);
+    if (filters.profession) params.append("profession", filters.profession);
 
-    setFilteredGrooms(filtered);
-    setCurrentPage(1);
+    const url =
+      params.toString().length > 0
+        ? `http://127.0.0.1:5000/groom?${params.toString()}`
+        : `http://127.0.0.1:5000/groom`;
+
+    axios
+      .get(url)
+      .then((res) => {
+        setFilteredGrooms(res.data);
+        setCurrentPage(1);
+      })
+      .catch((err) => {
+        console.error("Error fetching filtered data:", err);
+      })
+      .finally(() => {});
   };
 
   const indexOfLastProfile = currentPage * profilesPerPage;
@@ -75,6 +113,38 @@ const GroomPage = () => {
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((currentPage) => currentPage + 1);
+    }
+  };
+
+  const handleToggleWishlist = async (profile) => {
+    if (!profile || !profile.id) {
+      alert("Invalid profile selected!");
+      return;
+    }
+    const isAlreadyInWishlist = wishlist.some(
+      (item) => item && item.id === profile.id
+    );
+
+    try {
+      if (isAlreadyInWishlist) {
+        await axios.delete(`http://localhost:3001/wishlist/${profile.id}`);
+
+        const updatedWishlist = wishlist.filter(
+          (item) => item && item.id !== profile.id
+        );
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        alert("Removed from wishlist!");
+      } else {
+        await axios.post("http://localhost:3001/wishlist", profile);
+        const updatedWishlist = [...wishlist, profile];
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        alert("Added to wishlist!");
+      }
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+      alert("Error updating wishlist.");
     }
   };
 
@@ -175,17 +245,36 @@ const GroomPage = () => {
                     alt={groom.name}
                     className="groom-img"
                   />
+
                   <h3>{groom.name}</h3>
                   <p>
                     {groom.age} years | {groom.profession}
                   </p>
                   <p>{groom.city}</p>
-                  <button
-                    className="connect-btn"
-                    onClick={() => handleViewProfile(groom)}
-                  >
-                    View Full Profile
-                  </button>
+                  <div className="buttons">
+                    <button
+                      className="connect-btn"
+                      onClick={() => handleViewProfile(groom)}
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      className="wishlist-btn"
+                      onClick={() => handleToggleWishlist(groom)}
+                    >
+                      {wishlist.some((item) => item && item.id === groom.id) ? (
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/210/210545.png"
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/2077/2077422.png"
+                          alt=""
+                        />
+                      )}
+                    </button>
+                  </div>
                 </div>
               ))
             )}

@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./bride.css";
-import brideData from "../../users/bride.json";
+import axios from "axios";
 
 const BridePage = () => {
   const [brides, setBrides] = useState([]);
   const [filteredBrides, setFilteredBrides] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
+
+  const [wishlist, setWishlist] = useState(() => {
+    const stored = localStorage.getItem("wishlist");
+    return stored ? JSON.parse(stored) : [];
+  });
+
   const [filters, setFilters] = useState({
     gender: "",
     minAge: "",
@@ -18,8 +24,15 @@ const BridePage = () => {
   const profilesPerPage = 8;
 
   useEffect(() => {
-    setBrides(brideData);
-    setFilteredBrides(brideData);
+    axios
+      .get("http://127.0.0.1:5000/bride")
+      .then((res) => {
+        setBrides(res.data);
+        setFilteredBrides(res.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      });
   }, []);
 
   const handleBrideFilterChange = (e) => {
@@ -31,23 +44,27 @@ const BridePage = () => {
   };
 
   const applyFilters = () => {
-    const filtered = brides.filter((bride) => {
-      const age = bride.age;
+    const params = new URLSearchParams();
 
-      return (
-        (filters.gender === "" ||
-          bride.gender.toLowerCase() === filters.gender.toLowerCase()) &&
-        (filters.minAge === "" || age >= parseInt(filters.minAge)) &&
-        (filters.maxAge === "" || age <= parseInt(filters.maxAge)) &&
-        (filters.religion === "" ||
-          bride.religion.toLowerCase() === filters.religion.toLowerCase()) &&
-        (filters.profession === "" ||
-          bride.profession.toLowerCase() === filters.profession.toLowerCase())
-      );
-    });
+    if (filters.minAge) params.append("minAge", filters.minAge);
+    if (filters.maxAge) params.append("maxAge", filters.maxAge);
+    if (filters.religion) params.append("religion", filters.religion);
+    if (filters.profession) params.append("profession", filters.profession);
 
-    setFilteredBrides(filtered);
-    setCurrentPage(1);
+    const url =
+      params.toString().length > 0
+        ? `http://127.0.0.1:5000/bride?${params.toString()}`
+        : `http://127.0.0.1:5000/bride`;
+
+    axios
+      .get(url)
+      .then((res) => {
+        setFilteredBrides(res.data);
+        setCurrentPage(1);
+      })
+      .catch((err) => {
+        console.error("Error fetching filtered data:", err);
+      });
   };
 
   const indexOfLastProfile = currentPage * profilesPerPage;
@@ -78,6 +95,38 @@ const BridePage = () => {
     }
   };
 
+  const handleToggleWishlist = async (profile) => {
+    if (!profile || !profile.id) {
+      alert("Invalid profile selected!");
+      return;
+    }
+    const isAlreadyInWishlist = wishlist.some(
+      (item) => item && item.id === profile.id
+    );
+
+    try {
+      if (isAlreadyInWishlist) {
+        await axios.delete(`http://localhost:3001/wishlist/${profile.id}`);
+
+        const updatedWishlist = wishlist.filter(
+          (item) => item && item.id !== profile.id
+        );
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        alert("Removed from wishlist!");
+      } else {
+        await axios.post("http://localhost:3001/wishlist", profile);
+        const updatedWishlist = [...wishlist, profile];
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+        alert("Added to wishlist!");
+      }
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+      alert("Error updating wishlist.");
+    }
+  };
+
   return (
     <>
       {currentPage === 1 && (
@@ -102,7 +151,7 @@ const BridePage = () => {
                 onChange={handleBrideFilterChange}
               >
                 <option value="">Min</option>
-                {Array.from({ length: 20 }, (_, i) => {
+                {[...Array(20)].map((element, i) => {
                   const age = 20 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -114,7 +163,7 @@ const BridePage = () => {
                 onChange={handleBrideFilterChange}
               >
                 <option value="">Max</option>
-                {Array.from({ length: 20 }, (_, i) => {
+                {[...Array(20)].map((_, i) => {
                   const age = 25 + i;
                   return <option key={age}>{age}</option>;
                 })}
@@ -175,17 +224,36 @@ const BridePage = () => {
                     alt={bride.name}
                     className="bride-img"
                   />
+
                   <h3>{bride.name}</h3>
                   <p>
                     {bride.age} years | {bride.profession}
                   </p>
                   <p>{bride.city}</p>
-                  <button
-                    className="connect-btn"
-                    onClick={() => handleViewProfile(bride)}
-                  >
-                    View Full Profile
-                  </button>
+                  <div className="buttons">
+                    <button
+                      className="connect-btn"
+                      onClick={() => handleViewProfile(bride)}
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      className="wishlist-btn"
+                      onClick={() => handleToggleWishlist(bride)}
+                    >
+                      {wishlist.some((item) => item && item.id === bride.id) ? (
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/210/210545.png"
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/128/2077/2077422.png"
+                          alt=""
+                        />
+                      )}
+                    </button>
+                  </div>
                 </div>
               ))
             )}
